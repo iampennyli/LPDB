@@ -1,2 +1,2 @@
 # LPDB
-the simple and easy database orm tools for ios 
+The Simple ORM Database tools for iOS
