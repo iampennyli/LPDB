@@ -44,13 +44,13 @@ LPDBManager支持下面的这些**属性**类型：
 这里就自动创建了Person表以及Dog表
 
 ####保存数据
-~~~
+~~~objc
 [[LPDBManager defaultManager] saveModels: @[dog1, dog2, ...]];
 ~~~
 
 ####删除数据
 
-~~~
+~~~objc
 [[LPDBManager defaultManager] deleteModels: @[dog1, dog2, ...]];
 ~~~
 
@@ -58,20 +58,20 @@ LPDBManager支持下面的这些**属性**类型：
 
 从Person表中查找年龄大于18且名字叫张三的人，返回符合条件Person对象的集合
 
-~~~
+~~~objc
 NSArray <Person *> results = [[LPDBManager defaultManager] findModels: [Person class] where: @"age > 18 and name == 'zhangsan'"];
 ~~~
 
 ####批量更新
 将名字叫张三的人的年龄修改成28岁，返回是否修改成功
 
-~~~
+~~~objc
 BOOL success = [[LPDBManager defaultManager] batchUpdateOfModel: [Person class] withParams: @{@"age" : @(28)} where: @"name = 'zhangsan'"];
 ~~~
 
 ####批量删除
 从Person表中删除所有狗叫阿旺的人，并返回是否成功
-~~~
+~~~objc
 BOOL success = [[LPDBManager defaultManager] batchDeleteOfModels: [Person class] where: @"dog == 'a-wang'"];
 ~~~
 
@@ -79,7 +79,7 @@ BOOL success = [[LPDBManager defaultManager] batchDeleteOfModels: [Person class]
 
 统计姓张的人的数量
 
-~~~
+~~~objc
 NSUInteger count = [[LPDBManager defaultManager] countOfModel: [Person class] where: @"name like 张%"];
 ~~~
 
@@ -87,7 +87,7 @@ NSUInteger count = [[LPDBManager defaultManager] countOfModel: [Person class] wh
 
 数据库中是否存对象
 
-~~~
+~~~objc
 BOOL exist = [[LPDBManager defaultManager] existModel: person];
 ~~~
 
@@ -96,7 +96,7 @@ BOOL exist = [[LPDBManager defaultManager] existModel: person];
 
 LPDB提供默认数据库，但是同时也支持自定义数据库，你可以这样：
 
-~~~
+~~~objc
 LPDBManager *otherManager = [[LPDBManager alloc] initWithDBPath: db_path];
 ~~~
 
