@@ -15,7 +15,23 @@
 		A81771A11BEC956E00F2A616 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A817719F1BEC956E00F2A616 /* LaunchScreen.storyboard */; };
 		A81771B01BECB77A00F2A616 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771AD1BECB77A00F2A616 /* Dog.m */; };
 		A81771B11BECB77A00F2A616 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771AF1BECB77A00F2A616 /* Person.m */; };
+		A8D0E37F1E0296B600A2655C /* LPDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8D0E37E1E0296B600A2655C /* LPDB.framework */; };
+		A8D0E3801E0296B600A2655C /* LPDB.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A8D0E37E1E0296B600A2655C /* LPDB.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A8D0E37D1E0296AA00A2655C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A8D0E3801E0296B600A2655C /* LPDB.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A817718E1BEC956E00F2A616 /* LPDBTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LPDBTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -32,6 +48,7 @@
 		A81771AD1BECB77A00F2A616 /* Dog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dog.m; sourceTree = "<group>"; };
 		A81771AE1BECB77A00F2A616 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		A81771AF1BECB77A00F2A616 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
+		A8D0E37E1E0296B600A2655C /* LPDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = LPDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8D0E37F1E0296B600A2655C /* LPDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -48,6 +66,7 @@
 		A81771851BEC956E00F2A616 = {
 			isa = PBXGroup;
 			children = (
+				A8D0E37E1E0296B600A2655C /* LPDB.framework */,
 				A81771901BEC956E00F2A616 /* LPDBTest */,
 				A817718F1BEC956E00F2A616 /* Products */,
 			);
@@ -99,6 +118,7 @@
 				A817718A1BEC956E00F2A616 /* Sources */,
 				A817718B1BEC956E00F2A616 /* Frameworks */,
 				A817718C1BEC956E00F2A616 /* Resources */,
+				A8D0E37D1E0296AA00A2655C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
