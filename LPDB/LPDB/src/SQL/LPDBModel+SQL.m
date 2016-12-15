@@ -12,10 +12,8 @@
 #import "NSObject-ClassName.h"
 #import "NSString-SQLiteColumnName.h"
 #import "NSString-SQLitePersistence.h"
-#import "LPDBFetchRequest.h"
-#import "LPDBBatchDeleteRequest.h"
-#import "LPDBBatchUpdateRequest.h"
 #import "LPDBManager+Private.h"
+#import "LPDBModel+Private.h"
 
 #define isCollectionType(x) (isNSSetType(x) || isNSArrayType(x) || isNSDictionaryType(x))
 #define isNSArrayType(x) ([x isEqualToString:@"NSArray"] || [x isEqualToString:@"NSMutableArray"])
@@ -30,66 +28,79 @@ static const NSString *readWritePropsLock = @"readWritePropsLock";
 static const NSString *readWriteTableCheckedLock = @"readWriteTableCheckedLock";
 static const NSString *readWriteSQLCaches = @"readWriteSQLCaches";
 static const NSString *readWriteTableName = @"readWriteTableName";
-
-@interface LPDBModel()
-// special property for watch propertys value changed
-@property (nonatomic, assign) BOOL isPropertysValueChanged__;
-@end
+static const NSString *readWriteIgnorePropertys = @"readWriteIgnorePropertys";
 
 @implementation LPDBModel(SQL)
 
 - (instancetype)init
 {
     if (self = [super init]) {
-        _dirty = NO;
+        self.dirty = NO;
         self.pk = -1;
-        [self addObserver: self forKeyPath: @"isPropertysValueChanged__" options: 0 context: nil];
+        [self addWatchPropertyNotification];
     }
     return self;
 }
 
 - (void)dealloc
 {
-    [self removeObserver: self forKeyPath: @"isPropertysValueChanged__"];
+    [self removeWatchPropertyNotification];
+}
+
+- (void)addWatchPropertyNotification
+{
+    NSMutableArray *allPropertys = [NSMutableArray arrayWithArray:[[[self class] propertiesWithEncodedTypes] allKeys]];
+    [allPropertys removeObjectsInArray: [[[self class] allIgnoredProperties] allObjects]];
+    for (NSString *oneProp in allPropertys)
+        [self addObserver: self forKeyPath: oneProp options: NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context: nil];
+}
+
+- (void)removeWatchPropertyNotification
+{
+    // 删除kvo要小心...
+    NSMutableArray *allPropertys = [NSMutableArray arrayWithArray:[[[self class] propertiesWithEncodedTypes] allKeys]];
+    [allPropertys removeObjectsInArray: [[[self class] allIgnoredProperties] allObjects]];
+    @try {
+        for (NSString *oneProp in allPropertys)
+            [self removeObserver: self forKeyPath: oneProp];
+    } @catch (NSException *exception) {
+        
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {   
-    if (!self.isPropertysValueChanged__) {
-        _dirty = YES;
+    if (![change[NSKeyValueChangeNewKey] isEqual: change[NSKeyValueChangeOldKey]]) {
+        self.dirty = YES;
     }
 }
 
-+ (NSSet <NSString *> *)keyPathsForValuesAffectingIsPropertysValueChanged__
++ (NSSet *)allIgnoredProperties
 {
-    NSArray *allPropertys = [[[self class] propertiesWithEncodedTypes] allKeys];
-    NSArray *ingorePropertys = [[self class] ignoredProperties];
-    NSMutableArray *tmpAllPropertys = [NSMutableArray arrayWithArray: allPropertys];
-    [tmpAllPropertys removeObjectsInArray: ingorePropertys];
+    static NSMutableDictionary *ignoreAllProperties = nil;
     
-    return [NSSet setWithArray: tmpAllPropertys];
-}
-
-- (BOOL)isPropertysValueChanged__
-{
-    return objc_getAssociatedObject(self, @selector(setIsPropertysValueChanged__));
-}
-
-- (void)setIsPropertysValueChanged__:(BOOL)setIsPropertysValueChanged__
-{
-    if ([self isPropertysValueChanged__] != setIsPropertysValueChanged__) {
-        objc_setAssociatedObject(self, @selector(setIsPropertysValueChanged__), @(setIsPropertysValueChanged__), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    @synchronized (readWriteIgnorePropertys) {
+        if (ignoreAllProperties == nil) {
+            ignoreAllProperties = [[NSMutableDictionary alloc] init];
+        } else {
+            if ([[ignoreAllProperties allKeys] containsObject: [self className]]) {
+                return ignoreAllProperties[[self className]];
+            }
+        }
     }
-}
-
-- (BOOL)dirty
-{
-    return _dirty;
-}
-
-- (void)setDirty:(BOOL)dirty
-{
-    _dirty = dirty;
+    
+    NSMutableSet *set = [NSMutableSet set];
+    Class cls = [self class];
+    while ([cls isSubclassOfClass: [LPDBModel class]]) {
+        [set addObjectsFromArray: [cls ignoredProperties]];
+        cls = [cls superclass];
+    }
+    
+    @synchronized (readWriteIgnorePropertys) {
+        [ignoreAllProperties setObject: set forKey: [self className]];
+    }
+    
+    return set;
 }
 
 #pragma mark - Private
@@ -125,13 +136,10 @@ static const NSString *readWriteTableName = @"readWriteTableName";
     {
         objc_property_t oneProp = propList[i];
         NSString *propName = [NSString stringWithUTF8String:property_getName(oneProp)];
-        if ([propName isEqualToString: @"isPropertysValueChanged__"]) {
-            continue;
-        }
         NSString *attrs = [NSString stringWithUTF8String: property_getAttributes(oneProp)];
         // Read only attributes are assumed to be derived or calculated
         // See http://developer.apple.com/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/chapter_8_section_3.html
-        if ([attrs rangeOfString:@",R,"].location == NSNotFound)
+        if ([attrs rangeOfString:@",R"].location == NSNotFound)
         {
             NSArray *attrParts = [attrs componentsSeparatedByString:@","];
             if (attrParts != nil)
@@ -182,27 +190,6 @@ static const NSString *readWriteTableName = @"readWriteTableName";
     return columns;
 }
 
-+ (void)_createIndexed:(FMDatabase *)db
-{
-    NSString *deleteIndexSql = [NSString stringWithFormat: @"drop index if exists %@_index", [self className]];
-    BOOL success = [db executeUpdate: deleteIndexSql];
-    assert(success);
-    
-    NSArray *indexedProperties = [[self class] indexedProperties];
-    if (indexedProperties.count) {
-        __block NSString *indexedStr = @"";
-        [indexedProperties enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            indexedStr = [indexedStr stringByAppendingString: obj];
-            if (idx < indexedProperties.count - 1) {
-                indexedStr = [indexedStr stringByAppendingString: @", "];
-            }
-        }];
-        NSString *indexedSql = [NSString stringWithFormat: @"create index if not exists %@_index on %@(%@)", [self className], [self className], indexedStr];
-        BOOL success = [db executeUpdate: indexedSql];
-        assert(success);
-    }
-}
-
 #pragma mark - Table logic
 
 + (void)tableCheck:(FMDatabase *)db
@@ -211,6 +198,7 @@ static const NSString *readWriteTableName = @"readWriteTableName";
     NSMutableArray *allProps = [NSMutableArray arrayWithArray:[props allKeys]];
     
     [allProps removeObject: [[self class] primaryKey]];
+    [allProps removeObjectsInArray: [[self class] allIgnoredProperties].allObjects];
     
     if ([self tableExists: db]) {
         NSArray *columns = [self tableColumns: db];
@@ -221,10 +209,10 @@ static const NSString *readWriteTableName = @"readWriteTableName";
                 NSMutableString *insertColumnSQL = [NSMutableString stringWithFormat: @"alter table %@ add ", [self tableName]];
                 NSString *propType = props[oneProp];
                 if (isIntegerType(propType)) {
-                    [insertColumnSQL appendFormat:@"%@ INTEGER", propName];
+                    [insertColumnSQL appendFormat:@"%@ INTEGER DEFAULT 0", propName];
                 }
                 else if (isStringType(propType)) {
-                    [insertColumnSQL appendFormat:@"%@ INTEGER", propName];
+                    [insertColumnSQL appendFormat:@"%@ INTEGER DEFAULT 0", propName];
                 }
                 else if (isFloatType(propType)) {
                     [insertColumnSQL appendFormat:@"%@ REAL", propName];
@@ -282,10 +270,10 @@ static const NSString *readWriteTableName = @"readWriteTableName";
             NSString *propType = [props objectForKey:oneProp];
             
             if (isIntegerType(propType)) {
-                [createSQL appendFormat:@"%@ INTEGER", propName];
+                [createSQL appendFormat:@"%@ INTEGER DEFAULT 0", propName];
             }
             else if (isStringType(propType)) {
-                [createSQL appendFormat:@"%@ INTEGER", propName];
+                [createSQL appendFormat:@"%@ INTEGER DEFAULT 0", propName];
             }
             else if (isFloatType(propType)) {
                 [createSQL appendFormat:@"%@ REAL", propName];
@@ -307,9 +295,8 @@ static const NSString *readWriteTableName = @"readWriteTableName";
         
         BOOL success = [db executeUpdate: createSQL];
         assert(success);
+        
     }
-    
-     [self _createIndexed: db];
 }
 
 - (BOOL)save:(FMDatabase *)db
@@ -334,15 +321,15 @@ static const NSString *readWriteTableName = @"readWriteTableName";
         [[self class] tableCheck: db];
     }
     
-    if (_dirty) {
-        _dirty = NO;
+    if (self.dirty) {
+        self.dirty = NO;
         
         NSDictionary *props = [[self class] propertiesWithEncodedTypes];
         NSString *primaryKey = [[self class] primaryKey];
         
         NSMutableArray *allPropNames = [NSMutableArray arrayWithArray:[props allKeys]];
         [allPropNames removeObject: primaryKey];
-        [allPropNames removeObjectsInArray: [[self class] ignoredProperties]];
+        [allPropNames removeObjectsInArray: [[self class] allIgnoredProperties].allObjects];
         
         BOOL isPk = [primaryKey isEqualToString: @"pk"];
         
@@ -440,6 +427,7 @@ static const NSString *readWriteTableName = @"readWriteTableName";
             for (LPDBModel *model in models)
                 [model save: db];
             BOOL success = [db executeUpdate: updateSQL withArgumentsInArray: values];
+            assert(success);
             return success;
         }
     }
@@ -527,7 +515,7 @@ static const NSString *readWriteTableName = @"readWriteTableName";
 {
     NSDictionary *resultDict = [rs resultDictionary];
     NSDictionary *props = [[self class] propertiesWithEncodedTypes];
-    NSArray *ignoredProperties = [[self class] ignoredProperties];
+    NSArray *ignoredProperties = [[self class] allIgnoredProperties].allObjects;
     NSArray *propNames = [props allKeys];
     LPDBModel *model = [[[self class] alloc] init];
     for (NSString *cloumName in [resultDict allKeys]) {
@@ -598,57 +586,5 @@ static const NSString *readWriteTableName = @"readWriteTableName";
         
     }
     return [NSNull null];
-}
-
-#pragma mark - Request Deprecated
-+ (BOOL)update:(LPDBRequest *)request db:(FMDatabase *)db
-{
-    if ([request isKindOfClass: [LPDBBatchUpdateRequest class]]) {
-        NSString *updateString = request.requestString;
-        if (updateString.length) {
-            updateString = [NSString stringWithFormat: @"update %@ set %@", [self tableName], updateString];
-            return [db executeUpdate: updateString withArgumentsInArray: [(LPDBBatchUpdateRequest *)request values]];
-        }
-    } else if ([request isKindOfClass: [LPDBBatchDeleteRequest class]]) {
-        NSString *deleteString = request.requestString;
-        if (deleteString.length) {
-            deleteString = [NSString stringWithFormat: @"delete from %@ where %@", [self tableName], deleteString];
-            return [db executeUpdate: deleteString];
-        }
-    }
-    return NO;
-}
-
-+ (NSUInteger)count:(LPDBFetchRequest *)request db:(FMDatabase *)db
-{
-    NSString *queryString = request.requestString;
-    if (queryString.length) {
-        queryString = [NSString stringWithFormat: @"select count(*) from %@ %@", [self tableName], queryString];
-    } else {
-        queryString = [NSString stringWithFormat: @"select count(*) from %@", [self tableName]];
-    }
-    NSUInteger count = [db longForQuery: queryString];
-    return count;
-}
-
-
-+ (NSArray *)query:(LPDBFetchRequest *)fetchRequest db:(FMDatabase *)db;
-{
-    NSString *queryString = fetchRequest.requestString;
-    if (queryString.length) {
-        queryString = [NSString stringWithFormat: @"select * from %@ %@", [self tableName], queryString];
-    } else {
-        queryString = [NSString stringWithFormat: @"select * from %@", [self tableName]];
-    }
-    
-    NSMutableArray *result = [NSMutableArray array];
-    FMResultSet *set = [db executeQuery: queryString];
-    while ([set next]) {
-        LPDBModel *model = [self objectFromResultSet: set db: db];
-        [result addObject: model];
-    }
-    [set close];
-    
-    return result;
 }
 @end

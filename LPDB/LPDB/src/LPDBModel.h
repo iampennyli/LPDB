@@ -35,10 +35,7 @@
         - 指针等
  */
 
-@interface LPDBModel : NSObject {
-@private
-    BOOL _dirty;
-}
+@interface LPDBModel : NSObject
 
 /**
  默认主键

@@ -71,17 +71,6 @@
     }
 }
 
-- (NSArray *)query:(Class)modelClass fetchRequest:(LPDBFetchRequest *)request
-{
-    __block NSArray *result = nil;
-    if ([modelClass isSubclassOfClass: [LPDBModel class]]) {
-        [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-            result = [modelClass query: request db: db];
-        }];
-    }
-    return result;
-}
-
 - (void)saveModels:(NSArray<__kindof LPDBModel *> *)models;
 {
     [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
@@ -230,57 +219,5 @@
     }
     return YES;
 }
-@end
-
-@implementation LPDBManager (Deprecated)
-
-- (NSArray *)executeFetchRequest:(LPDBFetchRequest *)request
-{
-    NSString *modelName = request.modelName;
-    if (modelName.length) {
-        Class modelClass = NSClassFromString(modelName);
-        if ([modelClass isSubclassOfClass: [LPDBModel class]]) {
-            __block NSArray *result = nil;
-            [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                result = [modelClass query: request db: db];
-            }];
-            return result;
-        }
-    }
-    return nil;
-}
-
-- (BOOL)executeUpdateRequest:(LPDBRequest *)request
-{
-    NSString *modelName = request.modelName;
-    if (modelName.length) {
-        Class modelClass = NSClassFromString(modelName);
-        if ([modelClass isSubclassOfClass: [LPDBModel class]]) {
-            __block BOOL success = NO;
-            [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                success = [modelClass update: request db: db];
-            }];
-            return success;
-        }
-    }
-    return NO;
-}
-
-- (NSUInteger)countForFetchRequest:(LPDBFetchRequest *)request
-{
-    NSString *modelName = request.modelName;
-    if (modelName.length) {
-        Class modelClass = NSClassFromString(modelName);
-        if ([modelClass isSubclassOfClass: [LPDBModel class]]) {
-            __block NSUInteger count = 0;
-            [self.queue inTransaction:^(FMDatabase *db, BOOL *rollback) {
-                count = [modelClass count: request db: db];
-            }];
-            return count;
-        }
-    }
-    return 0;
-}
-
 @end
 

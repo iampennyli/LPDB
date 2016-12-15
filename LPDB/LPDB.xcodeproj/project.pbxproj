@@ -19,20 +19,10 @@
 		A81771541BEC8FE500F2A616 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = A817711C1BEC8FE500F2A616 /* FMDB.h */; };
 		A81771551BEC8FE500F2A616 /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = A817711D1BEC8FE500F2A616 /* FMResultSet.h */; };
 		A81771561BEC8FE500F2A616 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = A817711E1BEC8FE500F2A616 /* FMResultSet.m */; };
-		A81771571BEC8FE500F2A616 /* LPDBBatchDeleteRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A817711F1BEC8FE500F2A616 /* LPDBBatchDeleteRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A81771581BEC8FE500F2A616 /* LPDBBatchDeleteRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771201BEC8FE500F2A616 /* LPDBBatchDeleteRequest.m */; };
-		A81771591BEC8FE500F2A616 /* LPDBBatchUpdateRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A81771211BEC8FE500F2A616 /* LPDBBatchUpdateRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A817715A1BEC8FE500F2A616 /* LPDBBatchUpdateRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771221BEC8FE500F2A616 /* LPDBBatchUpdateRequest.m */; };
-		A817715B1BEC8FE500F2A616 /* LPDBFetchRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A81771231BEC8FE500F2A616 /* LPDBFetchRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A817715C1BEC8FE500F2A616 /* LPDBFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771241BEC8FE500F2A616 /* LPDBFetchRequest.m */; };
 		A817715D1BEC8FE500F2A616 /* LPDBManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A81771251BEC8FE500F2A616 /* LPDBManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A817715E1BEC8FE500F2A616 /* LPDBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771261BEC8FE500F2A616 /* LPDBManager.m */; };
 		A817715F1BEC8FE500F2A616 /* LPDBModel.h in Headers */ = {isa = PBXBuildFile; fileRef = A81771271BEC8FE500F2A616 /* LPDBModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A81771601BEC8FE500F2A616 /* LPDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771281BEC8FE500F2A616 /* LPDBModel.m */; };
-		A81771611BEC8FE500F2A616 /* LPDBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A81771291BEC8FE500F2A616 /* LPDBRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A81771621BEC8FE500F2A616 /* LPDBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A817712A1BEC8FE500F2A616 /* LPDBRequest.m */; };
-		A81771631BEC8FE500F2A616 /* LPDBWhereCondition.h in Headers */ = {isa = PBXBuildFile; fileRef = A817712B1BEC8FE500F2A616 /* LPDBWhereCondition.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A81771641BEC8FE500F2A616 /* LPDBWhereCondition.m in Sources */ = {isa = PBXBuildFile; fileRef = A817712C1BEC8FE500F2A616 /* LPDBWhereCondition.m */; };
 		A81771651BEC8FE500F2A616 /* CompilerCheckedKeyPaths.h in Headers */ = {isa = PBXBuildFile; fileRef = A817712E1BEC8FE500F2A616 /* CompilerCheckedKeyPaths.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A81771661BEC8FE500F2A616 /* LPDBManager+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A817712F1BEC8FE500F2A616 /* LPDBManager+Private.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A81771671BEC8FE500F2A616 /* LPDBModel+SQL.h in Headers */ = {isa = PBXBuildFile; fileRef = A81771301BEC8FE500F2A616 /* LPDBModel+SQL.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -64,6 +54,7 @@
 		A81771811BEC8FE500F2A616 /* UIImage-SQLitePersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = A817714A1BEC8FE500F2A616 /* UIImage-SQLitePersistence.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A81771821BEC8FE500F2A616 /* UIImage-SQLitePersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = A817714B1BEC8FE500F2A616 /* UIImage-SQLitePersistence.m */; };
 		A81771841BEC937700F2A616 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A81771831BEC937700F2A616 /* libsqlite3.0.tbd */; };
+		A8D0E3751E02881B00A2655C /* LPDBModel+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = A8D0E3741E02881B00A2655C /* LPDBModel+Private.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,20 +72,10 @@
 		A817711C1BEC8FE500F2A616 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
 		A817711D1BEC8FE500F2A616 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
 		A817711E1BEC8FE500F2A616 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
-		A817711F1BEC8FE500F2A616 /* LPDBBatchDeleteRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBBatchDeleteRequest.h; sourceTree = "<group>"; };
-		A81771201BEC8FE500F2A616 /* LPDBBatchDeleteRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBBatchDeleteRequest.m; sourceTree = "<group>"; };
-		A81771211BEC8FE500F2A616 /* LPDBBatchUpdateRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBBatchUpdateRequest.h; sourceTree = "<group>"; };
-		A81771221BEC8FE500F2A616 /* LPDBBatchUpdateRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBBatchUpdateRequest.m; sourceTree = "<group>"; };
-		A81771231BEC8FE500F2A616 /* LPDBFetchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBFetchRequest.h; sourceTree = "<group>"; };
-		A81771241BEC8FE500F2A616 /* LPDBFetchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBFetchRequest.m; sourceTree = "<group>"; };
 		A81771251BEC8FE500F2A616 /* LPDBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBManager.h; sourceTree = "<group>"; };
 		A81771261BEC8FE500F2A616 /* LPDBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBManager.m; sourceTree = "<group>"; };
 		A81771271BEC8FE500F2A616 /* LPDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBModel.h; sourceTree = "<group>"; };
 		A81771281BEC8FE500F2A616 /* LPDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBModel.m; sourceTree = "<group>"; };
-		A81771291BEC8FE500F2A616 /* LPDBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBRequest.h; sourceTree = "<group>"; };
-		A817712A1BEC8FE500F2A616 /* LPDBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBRequest.m; sourceTree = "<group>"; };
-		A817712B1BEC8FE500F2A616 /* LPDBWhereCondition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LPDBWhereCondition.h; sourceTree = "<group>"; };
-		A817712C1BEC8FE500F2A616 /* LPDBWhereCondition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LPDBWhereCondition.m; sourceTree = "<group>"; };
 		A817712E1BEC8FE500F2A616 /* CompilerCheckedKeyPaths.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompilerCheckedKeyPaths.h; sourceTree = "<group>"; };
 		A817712F1BEC8FE500F2A616 /* LPDBManager+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LPDBManager+Private.h"; sourceTree = "<group>"; };
 		A81771301BEC8FE500F2A616 /* LPDBModel+SQL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LPDBModel+SQL.h"; sourceTree = "<group>"; };
@@ -126,6 +107,7 @@
 		A817714A1BEC8FE500F2A616 /* UIImage-SQLitePersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage-SQLitePersistence.h"; sourceTree = "<group>"; };
 		A817714B1BEC8FE500F2A616 /* UIImage-SQLitePersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage-SQLitePersistence.m"; sourceTree = "<group>"; };
 		A81771831BEC937700F2A616 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		A8D0E3741E02881B00A2655C /* LPDBModel+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "LPDBModel+Private.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,16 +156,6 @@
 				A81771281BEC8FE500F2A616 /* LPDBModel.m */,
 				A81771251BEC8FE500F2A616 /* LPDBManager.h */,
 				A81771261BEC8FE500F2A616 /* LPDBManager.m */,
-				A81771291BEC8FE500F2A616 /* LPDBRequest.h */,
-				A817712A1BEC8FE500F2A616 /* LPDBRequest.m */,
-				A81771231BEC8FE500F2A616 /* LPDBFetchRequest.h */,
-				A81771241BEC8FE500F2A616 /* LPDBFetchRequest.m */,
-				A817711F1BEC8FE500F2A616 /* LPDBBatchDeleteRequest.h */,
-				A81771201BEC8FE500F2A616 /* LPDBBatchDeleteRequest.m */,
-				A81771211BEC8FE500F2A616 /* LPDBBatchUpdateRequest.h */,
-				A81771221BEC8FE500F2A616 /* LPDBBatchUpdateRequest.m */,
-				A817712B1BEC8FE500F2A616 /* LPDBWhereCondition.h */,
-				A817712C1BEC8FE500F2A616 /* LPDBWhereCondition.m */,
 				A81771131BEC8FE500F2A616 /* fmdb */,
 				A817712D1BEC8FE500F2A616 /* SQL */,
 			);
@@ -213,6 +185,7 @@
 			children = (
 				A817712E1BEC8FE500F2A616 /* CompilerCheckedKeyPaths.h */,
 				A817712F1BEC8FE500F2A616 /* LPDBManager+Private.h */,
+				A8D0E3741E02881B00A2655C /* LPDBModel+Private.h */,
 				A81771301BEC8FE500F2A616 /* LPDBModel+SQL.h */,
 				A81771311BEC8FE500F2A616 /* LPDBModel+SQL.m */,
 				A81771321BEC8FE500F2A616 /* NSArray-SQLitePersistence.h */,
@@ -252,13 +225,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8D0E3751E02881B00A2655C /* LPDBModel+Private.h in Headers */,
 				A817715F1BEC8FE500F2A616 /* LPDBModel.h in Headers */,
 				A817715D1BEC8FE500F2A616 /* LPDBManager.h in Headers */,
-				A81771631BEC8FE500F2A616 /* LPDBWhereCondition.h in Headers */,
-				A81771591BEC8FE500F2A616 /* LPDBBatchUpdateRequest.h in Headers */,
-				A81771611BEC8FE500F2A616 /* LPDBRequest.h in Headers */,
-				A81771571BEC8FE500F2A616 /* LPDBBatchDeleteRequest.h in Headers */,
-				A817715B1BEC8FE500F2A616 /* LPDBFetchRequest.h in Headers */,
 				A81771651BEC8FE500F2A616 /* CompilerCheckedKeyPaths.h in Headers */,
 				A81771711BEC8FE500F2A616 /* NSNumber-SQLitePersistence.h in Headers */,
 				A81771671BEC8FE500F2A616 /* LPDBModel+SQL.h in Headers */,
@@ -356,7 +325,6 @@
 				A817717E1BEC8FE500F2A616 /* NSString-UppercaseFirst.m in Sources */,
 				A817714D1BEC8FE500F2A616 /* FMDatabase.m in Sources */,
 				A81771531BEC8FE500F2A616 /* FMDatabaseQueue.m in Sources */,
-				A817715C1BEC8FE500F2A616 /* LPDBFetchRequest.m in Sources */,
 				A81771511BEC8FE500F2A616 /* FMDatabasePool.m in Sources */,
 				A81771681BEC8FE500F2A616 /* LPDBModel+SQL.m in Sources */,
 				A81771781BEC8FE500F2A616 /* NSSet-SQLitePersistence.m in Sources */,
@@ -369,14 +337,10 @@
 				A81771721BEC8FE500F2A616 /* NSNumber-SQLitePersistence.m in Sources */,
 				A817716E1BEC8FE500F2A616 /* NSDate-SQLitePersistence.m in Sources */,
 				A817717C1BEC8FE500F2A616 /* NSString-SQLitePersistence.m in Sources */,
-				A817715A1BEC8FE500F2A616 /* LPDBBatchUpdateRequest.m in Sources */,
-				A81771641BEC8FE500F2A616 /* LPDBWhereCondition.m in Sources */,
 				A81771741BEC8FE500F2A616 /* NSObject-ClassName.m in Sources */,
 				A81771801BEC8FE500F2A616 /* UIColor-SQLitePersistentObject.m in Sources */,
 				A81771561BEC8FE500F2A616 /* FMResultSet.m in Sources */,
 				A817716C1BEC8FE500F2A616 /* NSData-SQLitePersistence.m in Sources */,
-				A81771581BEC8FE500F2A616 /* LPDBBatchDeleteRequest.m in Sources */,
-				A81771621BEC8FE500F2A616 /* LPDBRequest.m in Sources */,
 				A81771601BEC8FE500F2A616 /* LPDBModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

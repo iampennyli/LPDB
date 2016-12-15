@@ -18,10 +18,5 @@ FOUNDATION_EXPORT const unsigned char LPDBVersionString[];
 
 #import <LPDB/LPDBManager.h>
 #import <LPDB/LPDBModel.h>
-#import <LPDB/LPDBRequest.h>
-#import <LPDB/LPDBWhereCondition.h>
-#import <LPDB/LPDBFetchRequest.h>
-#import <LPDB/LPDBBatchUpdateRequest.h>
-#import <LPDB/LPDBBatchDeleteRequest.h>
 #import <LPDB/CompilerCheckedKeyPaths.h>
 

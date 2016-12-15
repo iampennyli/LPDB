@@ -8,11 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "LPDBModel.h"
-#import "LPDBWhereCondition.h"
-#import "LPDBFetchRequest.h"
-#import "LPDBBatchDeleteRequest.h"
-#import "LPDBBatchUpdateRequest.h"
-
 
 @interface LPDBManager : NSObject
 
@@ -68,28 +63,4 @@
  **/
 - (BOOL)existModel:(LPDBModel *)model;
 
-@end
-
-#pragma mark - will be deprecated. not command to use.
-
-@interface LPDBManager (Deprecated)
-
-/**
- 查询接口根据LPDBFetchRequest条件查询满足条件的对象;
- 即将废弃，请使用- (NSArray <LPDBModel *> *)findModels:(NSString *)modelName where:(NSString *)sql,...;替换
- */
-- (NSArray *)executeFetchRequest:(LPDBFetchRequest *)request DEPRECATED_MSG_ATTRIBUTE("use +[findModels:where:]");
-
-/**
- 批量更新以及删除接口 支持批量更新以及删除，对应LPDBRequest为LPDBBatchUpdateRequest以及LPDBBatchDeleteRequest;
- 即将废弃，请使用- (BOOL)batchUpdateOfModel:(NSString *)modelName withParams:(NSDictionary <NSString *, id> *)paramDict where:(NSString *)sql,...; 和
- - (BOOL)batchDeleteOfModels:(NSString *)modelName where:(NSString *)sql,...; 替换
- */
-- (BOOL)executeUpdateRequest:(LPDBRequest *)request DEPRECATED_MSG_ATTRIBUTE("use +[batchUpdateOfModel:withParams:where:] or +[batchDeleteOfModels:where]");
-
-/**
- 返回request对应的记录条数;
- 即将废弃，请使用- (NSUInteger)countOfModel:(NSString *)modelName where:(NSString *)sql,...;替换
- */
-- (NSUInteger)countForFetchRequest:(LPDBFetchRequest *)request DEPRECATED_MSG_ATTRIBUTE("use +[countOfModel:where:]");
 @end

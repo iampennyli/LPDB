@@ -9,8 +9,11 @@
 #import "LPDBModel.h"
 #import "NSObject-ClassName.h"
 #import "CompilerCheckedKeyPaths.h"
+#import "LPDBModel+Private.h"
 
 @implementation LPDBModel
+
+@synthesize dirty = _dirty;
 
 + (NSString *)modelName
 {

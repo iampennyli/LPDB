@@ -15,7 +15,6 @@
 		A81771A11BEC956E00F2A616 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A817719F1BEC956E00F2A616 /* LaunchScreen.storyboard */; };
 		A81771B01BECB77A00F2A616 /* Dog.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771AD1BECB77A00F2A616 /* Dog.m */; };
 		A81771B11BECB77A00F2A616 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = A81771AF1BECB77A00F2A616 /* Person.m */; };
-		A81771B51BECB90200F2A616 /* LPDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A81771B41BECB90200F2A616 /* LPDB.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		A81771AD1BECB77A00F2A616 /* Dog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Dog.m; sourceTree = "<group>"; };
 		A81771AE1BECB77A00F2A616 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		A81771AF1BECB77A00F2A616 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
-		A81771B41BECB90200F2A616 /* LPDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LPDB.framework; path = "../../../../../Library/Developer/Xcode/DerivedData/LPDBManager-cdnargmhgsuipmgsgmxlmxagtgfq/Build/Products/Debug-iphoneos/LPDB.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,7 +39,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A81771B51BECB90200F2A616 /* LPDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +48,6 @@
 		A81771851BEC956E00F2A616 = {
 			isa = PBXGroup;
 			children = (
-				A81771B41BECB90200F2A616 /* LPDB.framework */,
 				A81771901BEC956E00F2A616 /* LPDBTest */,
 				A817718F1BEC956E00F2A616 /* Products */,
 			);
