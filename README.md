@@ -59,7 +59,7 @@ LPDBManager支持下面的这些**属性**类型：
 从Person表中查找年龄大于18且名字叫张三的人，返回符合条件Person对象的集合
 
 ~~~objc
-NSArray <Person *> results = [[LPDBManager defaultManager] findModels: [Person class] where: @"age > 18 and name = 'zhangsan'"];
+NSArray <Person *> * results = [[LPDBManager defaultManager] findModels: [Person class] where: @"age > 18 and name = 'zhangsan'"];
 ~~~
 
 ####批量更新
