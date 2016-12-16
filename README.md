@@ -59,7 +59,7 @@ LPDBManager支持下面的这些**属性**类型：
 从Person表中查找年龄大于18且名字叫张三的人，返回符合条件Person对象的集合
 
 ~~~objc
-NSArray <Person *> results = [[LPDBManager defaultManager] findModels: [Person class] where: @"age > 18 and name == 'zhangsan'"];
+NSArray <Person *> results = [[LPDBManager defaultManager] findModels: [Person class] where: @"age > 18 and name = 'zhangsan'"];
 ~~~
 
 ####批量更新
@@ -72,7 +72,7 @@ BOOL success = [[LPDBManager defaultManager] batchUpdateOfModel: [Person class] 
 ####批量删除
 从Person表中删除所有狗叫阿旺的人，并返回是否成功
 ~~~objc
-BOOL success = [[LPDBManager defaultManager] batchDeleteOfModels: [Person class] where: @"dog == 'a-wang'"];
+BOOL success = [[LPDBManager defaultManager] batchDeleteOfModels: [Person class] where: @"dog = 'a-wang'"];
 ~~~
 
 ####根据条件统计记录数
@@ -80,7 +80,7 @@ BOOL success = [[LPDBManager defaultManager] batchDeleteOfModels: [Person class]
 统计姓张的人的数量
 
 ~~~objc
-NSUInteger count = [[LPDBManager defaultManager] countOfModel: [Person class] where: @"name like 张%"];
+NSUInteger count = [[LPDBManager defaultManager] countOfModel: [Person class] where: @"name like '张%'"];
 ~~~
 
 ####判断记录是否存在
